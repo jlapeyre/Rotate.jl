@@ -1,6 +1,6 @@
 module Rotate
 
-export @rotate
+export @rotate, @rotaten
 
 """
     @rotate(x_1, x_2, ... x_n)
@@ -20,9 +20,23 @@ Compare to `circshift`.
 ```
 """
 macro rotate(args...)
-    args1 = (circshift([args...], 1)...,)
+    return _rotate(1, args...)
+end
+
+"""
+    @rotaten(n, x_1, x_2, ... x_n)
+
+Like `@rotate`, but rotate by `n`, where `n` is an integer.
+Use `n = -1` for circular shift left.
+"""
+macro rotaten(n, args...)
+    return _rotate(n, args...)
+end
+
+function _rotate(n, args...)
+    args_rhs = (circshift([args...], n)...,)
     expr = quote
-        ($(esc.(args)...),) = ($(esc.(args1)...),)
+        ($(esc.(args)...),) = ($(esc.(args_rhs)...),)
     end
     return expr
 end

@@ -1,6 +1,6 @@
 # Rotate
 
-###   @rotate(x_1, x_2, ... x_n)
+### @rotate(x_1, x_2, ... x_n)
 
 Rotate the values referred to by `x_i`.
 
@@ -15,3 +15,9 @@ Compare to `circshift`.
 ```julia
 @rotate(x, y, a[2])
 ```
+
+### @rotaten(n, x_1, x_2, ... x_n)
+
+Like `@rotate`, but rotate by `n`, where `n` is an integer.
+Use `n = -1` for circular shift left.
+
